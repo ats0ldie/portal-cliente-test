@@ -1,0 +1,12 @@
+services:
+  joskar-portal:
+    container_name: joskar-portal
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "7090:7090"
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - PORT=7090
