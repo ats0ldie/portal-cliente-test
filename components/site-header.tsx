@@ -19,7 +19,7 @@ export function SiteHeader() {
         <div className="flex flex-col py-1">
           <h1 className="text-base font-medium">{user.name}</h1>
           <h2 className="text-xs text-muted-foreground font-normal">
-            Límite Crédito: {user.limit} | Días de crédito: {user.diasCredito} | Días de Tasa Protegida: {user.mfactura} | Días Pago de Contado: {user.diasppago1} | Descuento Pago de Contado: {user.proppago1}%
+            Límite Crédito: {user.limit} | Días de crédito: {user.diasCredito} | Días de Tasa Protegida: {user.mfactura} | Días Pago de Contado: {user.diasppago1} | Descuento Pago de Contado: {user.poppago1}%
           </h2>
         </div>
         <div className="ml-auto flex items-center gap-2">
