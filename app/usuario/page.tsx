@@ -73,7 +73,7 @@ export default function UsuarioPage() {
             </div>
             <div className="grid gap-2">
               <Label>Descuento Pago de Contado</Label>
-              <Input value={user.proppago1 || "0"} readOnly className="bg-muted" />
+              <Input value={user.porppago1 || "0"} readOnly className="bg-muted" />
             </div>
             <div className="grid gap-2">
               <Label>Deuda</Label>
