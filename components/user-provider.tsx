@@ -67,7 +67,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
               factorCambiario: clientData.factor_cambiario,
               mfactura: clientData.mfactura,
               diasppago1: clientData.diasppago1,
-              proppago1: clientData.proppago1
+              porppago1: clientData.porppago1
             }))
           }
         } catch (error) {
