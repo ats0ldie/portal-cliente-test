@@ -1,11 +1,9 @@
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
-
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
     request,
   })
-
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -28,15 +26,19 @@ export async function updateSession(request: NextRequest) {
       },
     }
   )
-
   // IMPORTANT: Avoid writing any logic between createServerClient and
   // supabase.auth.getUser(). A simple mistake could make it very hard to debug
   // issues with users being randomly logged out.
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
-
+  let user = null
+  let error = null
+  try {
+    const { data, error: authError } = await supabase.auth.getUser()
+    user = data.user
+    error = authError
+  } catch (err) {
+    console.error('Error in middleware auth check:', err)
+    error = err
+  }
   if (
     !user &&
     !request.nextUrl.pathname.startsWith('/login') &&
@@ -45,8 +47,23 @@ export async function updateSession(request: NextRequest) {
     // no user, potentially respond by redirecting the user to the login page
     const url = request.nextUrl.clone()
     url.pathname = '/login'
-    return NextResponse.redirect(url)
+    const redirectResponse = NextResponse.redirect(url)
+    
+    // Clear all Supabase cookies to avoid loops or errors on the login page
+    request.cookies.getAll().forEach((cookie) => {
+      if (cookie.name.startsWith('sb-')) {
+        redirectResponse.cookies.delete(cookie.name)
+      }
+    })
+    return redirectResponse
   }
-
+  if (error) {
+    // Clear cookies on error to prevent infinite refresh token loops
+    request.cookies.getAll().forEach((cookie) => {
+      if (cookie.name.startsWith('sb-')) {
+        supabaseResponse.cookies.delete(cookie.name)
+      }
+    })
+  }
   return supabaseResponse
 }
