@@ -95,7 +95,7 @@ export default function CarritoPage() {
 
     setLoading(true)
     try {
-      const response = await fetch(`https://jkserverom.drogueriajoskar.com:7030/carrito/`, {
+      const response = await fetch(`https://jkserverom.drogueriajoskar.com:7030/carrito`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, descip: descip.toLowerCase() })
@@ -214,7 +214,7 @@ export default function CarritoPage() {
     // --- VALIDACIÓN DE STOCK ---
     try {
       // 1. Consultar inventario actualizado
-      const response = await fetch(`https://jkserverom.drogueriajoskar.com:7030/carrito/`, {
+      const response = await fetch(`https://jkserverom.drogueriajoskar.com:7030/carrito`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: user.email, descip: (user.segmento || "").toLowerCase() })
@@ -285,7 +285,7 @@ export default function CarritoPage() {
     }
 
     try {
-      const response = await fetch("https://jkserverom.drogueriajoskar.com:7030/pedido/", {
+      const response = await fetch("https://jkserverom.drogueriajoskar.com:7030/pedido", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(orderData)

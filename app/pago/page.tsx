@@ -79,7 +79,7 @@ export default function PagoPage() {
     }
 
     try {
-      const response = await fetch("https://jkserverom.drogueriajoskar.com:7030/cargar_pago/", {
+      const response = await fetch("https://jkserverom.drogueriajoskar.com:7030/cargar_pago", {
         method: "POST",
         body: apiData,
       })

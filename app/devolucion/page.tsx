@@ -121,7 +121,7 @@ ${products.map((p, i) => `${i+1}. Fact: ${p.factura} | Prod: ${p.producto} | Can
       const blob = new Blob([datosDevolucion], { type: "application/json" })
       formData.append("file", blob, "detalle_devolucion.json")
 
-      const response = await fetch("https://jkserverom.drogueriajoskar.com:7030/devolucion/", {
+      const response = await fetch("https://jkserverom.drogueriajoskar.com:7030/devolucion", {
         method: "POST",
         body: formData,
       })
