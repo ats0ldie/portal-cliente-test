@@ -14,7 +14,7 @@ export async function updateSession(request: NextRequest) {
         },
         setAll(cookiesToSet) {
           cookiesToSet.forEach(({ name, value, options }) =>
-            request.cookies.set(name, value, )
+            request.cookies.set(name, value, options)
           )
           supabaseResponse = NextResponse.next({
             request,
@@ -52,7 +52,7 @@ export async function updateSession(request: NextRequest) {
     // Clear all Supabase cookies to avoid loops or errors on the login page
     request.cookies.getAll().forEach((cookie) => {
       if (cookie.name.startsWith('sb-')) {
-        redirectResponse.cookies.delete(cookie.name)
+        redirectResponse.cookies.set(cookie.name, '', { path: '/', maxAge: -1 })
       }
     })
     return redirectResponse
@@ -61,7 +61,7 @@ export async function updateSession(request: NextRequest) {
     // Clear cookies on error to prevent infinite refresh token loops
     request.cookies.getAll().forEach((cookie) => {
       if (cookie.name.startsWith('sb-')) {
-        supabaseResponse.cookies.delete(cookie.name)
+        supabaseResponse.cookies.set(cookie.name, '', { path: '/', maxAge: -1 })
       }
     })
   }
