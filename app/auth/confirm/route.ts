@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
   redirectTo.searchParams.delete('next')
 
   // Forzar el dominio público para evitar redirecciones a 0.0.0.0:8090
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://cliente.drogueriajoskar.com'
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://testcliente.drogueriajoskar.com'
   if (siteUrl) {
     const publicUrl = new URL(siteUrl)
     redirectTo.protocol = publicUrl.protocol
